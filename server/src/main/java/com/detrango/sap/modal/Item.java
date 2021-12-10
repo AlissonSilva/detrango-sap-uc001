@@ -12,20 +12,20 @@ import javax.persistence.Id;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name = "SAP_TIPO_ITEM")
 public class Item {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_TIPO_ITEM")
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column(name = "TIPO_ITEM", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private ItemEnum tipo;
 	
-	@Column(nullable = false)
+	@Column(name = "DESC_TIPO_ITEM", nullable = false)
 	private String descricao;
-	
-	
 
+	
 }
