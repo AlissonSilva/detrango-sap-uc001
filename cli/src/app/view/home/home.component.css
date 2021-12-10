@@ -1,0 +1,11 @@
+table {
+  width: 100%;
+}
+
+.container{
+  padding: 50px 80px;
+}
+
+.btn_action{
+  margin: 5px;
+}
