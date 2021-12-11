@@ -17,7 +17,7 @@ export class ItemServices{
   }
 
   editarItem(element: Item): Observable<Item>{
-    return this.http.put<Item>(this.apiUrl, element);
+    return this.http.put<Item>(`${this.apiUrl}/${element.id}/editar`, element);
   }
 
   deletarItem(id: number): Observable<any>{

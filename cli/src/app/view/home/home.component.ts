@@ -33,13 +33,13 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deletarElemento(id: number): void{
+  deletarItem(id: number): void{
     this.itemServices.deletarItem(id).subscribe(()=> {
       this.dataSource = this.dataSource.filter(p => p.id !== id);
     });
   }
 
-  editarElemento(element : Item):void{
+  editarItem(element : Item):void{
     this.openDialog(element);
   }
 
