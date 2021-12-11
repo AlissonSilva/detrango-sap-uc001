@@ -60,7 +60,7 @@ public class ItemController {
 	}
 	
 	@PutMapping("/{id}/deletar")
-	public Map<String, Boolean> deletarItem(@PathVariable(value = "ID_TIPO_ITEM") Long id){
+	public Map<String, Boolean> deletarItem(@PathVariable(value = "id") Long id){
 		Item item = itemRepository.findById(id).orElseThrow();
 		itemRepository.delete(item);
 		
