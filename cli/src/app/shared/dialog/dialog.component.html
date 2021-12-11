@@ -1,0 +1,22 @@
+<h1 *ngIf="!isChange" mat-dialog-title>Novo Item</h1>
+<h1 *ngIf="isChange" mat-dialog-title>Alterar Item</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>#Id</mat-label>
+    <input matInput [(ngModel)]="data.id" disabled>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Tipo de Item</mat-label>
+    <input matInput [(ngModel)]="data.tipo">
+  </mat-form-field>
+  <mat-form-field >
+    <mat-label>Descrição</mat-label>
+    <input matInput [(ngModel)]="data.descricao">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelar()">Cancelar</button>
+  <button mat-button (click)="onLimpar()">Limpar</button>
+  <button *ngIf="!isChange" mat-button [mat-dialog-close]="data" cdkFocusInitial>Salvar</button>
+  <button *ngIf="isChange" mat-button [mat-dialog-close]="data" cdkFocusInitial>Alterar</button>
+</div>
