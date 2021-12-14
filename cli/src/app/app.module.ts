@@ -18,6 +18,16 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AdicionarComponent } from './view/adicionar/adicionar.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -25,7 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    DialogComponent
+    DialogComponent,
+    AdicionarComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +50,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatCardModule,
     MatInputModule,
+    HttpClientModule,
     FormsModule,
-    HttpClientModule
+    MatDividerModule,
+    MatListModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

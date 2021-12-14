@@ -20,7 +20,7 @@ export class DialogComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(this.data.descricao != ''){
+    if(this.data.id != null){
       this.isChange = true;
     }else{
       this.isChange = false;

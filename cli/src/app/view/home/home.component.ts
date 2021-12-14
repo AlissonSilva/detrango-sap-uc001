@@ -4,6 +4,7 @@ import { MatTable } from '@angular/material/table';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { Item } from 'src/app/models/Item';
 import { ItemServices } from 'src/app/services/Item.services';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
   table!: MatTable<any>;
   displayedColumns: string[] = ['id','tipo', 'descricao','action'];
   dataSource!: Item[];
+  router!: Router;
 
 
   constructor(
@@ -31,6 +33,10 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit(): void {
+  }
+
+  btnCadastrarClick = function () {
+
   }
 
   deletarItem(id: number): void{
