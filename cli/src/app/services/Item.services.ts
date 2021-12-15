@@ -9,7 +9,12 @@ export class ItemServices{
 
   httpOptions = {
     headers : new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Access-Control-Allow-Origin':'*',
+      'Accept':'*/*',
+      'Access-Control-Allow-Methods': 'PUT,GET,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     })
   };
 
@@ -20,6 +25,7 @@ export class ItemServices{
   }
 
   cadastrarItem(element: Item):Observable<Item>{
+    //console.log(element);
     return this.http.post<Item>(this.apiUrl, element, this.httpOptions);
   }
 

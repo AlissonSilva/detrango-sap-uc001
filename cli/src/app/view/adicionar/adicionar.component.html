@@ -4,20 +4,21 @@
     <mat-card-title>Incluir Tipo de Objeto</mat-card-title>
     <mat-card-content>
 
-      <form (ngSubmit)="cadastrar()">
+      <form (ngSubmit)="cadastrar()" >
         <mat-list>
 
           <mat-list-item class="fields-search">
-              <select id="tipo_add" [(ngModel)]="item.tipo" name="tipo">
+              <select id="tipo_add" [(ngModel)]="item.tipo" name="tipo" required>
                 <option value="Documentos">Documentos</option>
                 <option value="Outros">Outros</option>
               </select>
-              <input id="descricao" [(ngModel)]="item.descricao" type="text" name="descricao" >
+              <input id="descricao" [(ngModel)]="item.descricao" type="text" name="descricao" required>
+
           </mat-list-item>
           <mat-list-item style="display: flex; flex-direction: row-reverse;margin-bottom: 10px;">
             <div class="btn_home">
               <button mat-button color="primary"> <mat-icon>check</mat-icon>Salvar</button>
-              <button mat-button color="primary" > <mat-icon>refresh</mat-icon>Limpar</button>
+              <button mat-button color="primary" type="reset" > <mat-icon>refresh</mat-icon>Limpar</button>
               <a routerLink="/"><button mat-button color="primary" > <mat-icon>clear</mat-icon>Cancelar</button></a>
             </div>
           </mat-list-item>
@@ -25,9 +26,6 @@
          </mat-list>
 
       </form>
-
-
-
     </mat-card-content>
   </mat-card>
 
