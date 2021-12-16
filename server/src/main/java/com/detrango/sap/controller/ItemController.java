@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.transform.ToListResultTransformer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +27,7 @@ import org.springframework.data.domain.PageImpl;
 
 
 import com.detrango.sap.modal.Item;
+import com.detrango.sap.modal.ItemEnum;
 import com.detrango.sap.repository.ItemRepository;
 
 import static java.util.stream.Collectors.toList;
@@ -43,6 +44,13 @@ public class ItemController {
 	@GetMapping()
 	public List<Item> listarItens() {
 		return itemRepository.findAll();
+	}
+	
+	@GetMapping("/pesquisar")
+	public List<Item> searchItens(@RequestParam(name = "tipo_pesquisa") String tipo, @RequestParam(name="descricao_pesquisa") String descricao){
+		System.out.println(tipo);
+		System.out.println(descricao);
+		return itemRepository.searchItens(tipo, descricao);
 	}
 	
 	@GetMapping("/filterpage")
@@ -64,6 +72,7 @@ public class ItemController {
 		return itemRepository.save(item);
 		
 	}
+	
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Item> getItemId(@PathVariable(value = "id") Long id) {
