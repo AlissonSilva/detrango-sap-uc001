@@ -46,15 +46,15 @@ public class ItemController {
 	}
 	
 	@GetMapping("/filterpage")
-	public Page<Item> list(
+	public Page<ItemResponse> list(
 			  @RequestParam(name = "page", defaultValue = "0") int page,
-			  @RequestParam(name = "size", defaultValue = "10") int size) {
+			  @RequestParam(name = "size", defaultValue = "3") int size) {
 		
 	    PageRequest pageRequest = PageRequest.of(page, size);
 	    Page<Item> pageResult = itemRepository.findAll(pageRequest);
-	    List<Item> todos = pageResult.stream().map(null).collect(null);
+	    List<ItemResponse> todos = pageResult.stream().map(ItemResponse::new).collect(toList());
 	 
-	    return new PageImpl<>(todos, pageRequest, pageResult.getTotalElements());
+	    return new PageImpl<ItemResponse>(todos, pageRequest, pageResult.getTotalElements());
 	 
 	}
 	
