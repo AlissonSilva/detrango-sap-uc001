@@ -1,0 +1,12 @@
+
+button{
+  margin: 0px 10px;
+  background-color: orange;
+  color: #fff;
+}
+
+
+select {
+  height: 30px;
+  border-radius: 5px;
+}

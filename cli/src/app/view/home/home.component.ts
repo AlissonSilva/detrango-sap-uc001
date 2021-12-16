@@ -5,6 +5,7 @@ import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { Item } from 'src/app/models/Item';
 import { ItemServices } from 'src/app/services/Item.services';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public itemServices: ItemServices
+    public itemServices: ItemServices,
+    private snack: MatSnackBar
     ) {
       this.itemServices.getItens().subscribe((data: Item[])=>{
         console.log(data);
@@ -35,13 +37,15 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  btnCadastrarClick = function () {
 
+  snackBar(msg : string): void{
+    this.snack.open(msg, 'fechar');
   }
 
   deletarItem(id: number): void{
     this.itemServices.deletarItem(id).subscribe(()=> {
       this.dataSource = this.dataSource.filter(p => p.id !== id);
+      this.snackBar('Item deletado com sucesso');
     });
   }
 
@@ -51,7 +55,6 @@ export class HomeComponent implements OnInit {
 
   openDialog(element: Item | null): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
       data: element === null ?{
         id: null,
         tipo: '',
@@ -70,11 +73,13 @@ export class HomeComponent implements OnInit {
             const index = this.dataSource.findIndex(p => p.id == data.id);
             this.dataSource[index] = data;
             this.table.renderRows();
+            this.snackBar('Item editado com sucesso');
           });
         }else{
             this.itemServices.cadastrarItem(result).subscribe((data: Item)=>{
               this.dataSource.push(data);
               this.table.renderRows();
+              this.snackBar('Item cadastrado com sucesso');
           });
         }
       }

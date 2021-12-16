@@ -1,11 +1,17 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Item } from "../models/Item";
+import { BehaviorSubject, catchError, finalize, Observable, of } from "rxjs";
+import { Item, ItemResponse} from "../models/Item";
+import { CollectionViewer } from "@angular/cdk/collections";
 
 @Injectable()
 export class ItemServices{
-  apiUrl = 'http://localhost:8080/itens'
+  apiUrl = 'http://localhost:8080/itens';
+
+  private subjectItem = new BehaviorSubject<Item[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  private countSubject = new BehaviorSubject<number>(0);
+  public counter$ = this.countSubject.asObservable();
 
   httpOptions = {
     headers : new HttpHeaders({
@@ -20,8 +26,35 @@ export class ItemServices{
 
   constructor(private http: HttpClient){}
 
+  connect(collectionViewer: CollectionViewer): Observable<Item[]> {
+    return this.subjectItem.asObservable();
+  }
+
+  disconnect(collectionViewer: CollectionViewer): void {
+      this.subjectItem.complete();
+      this.loadingSubject.complete();
+      this.countSubject.complete();
+  }
+
   getItens(): Observable<Item[]>{
     return this.http.get<Item[]>(this.apiUrl);
+  }
+
+  getItensPage(request: any){
+    const params = request;
+    return this.http.get(this.apiUrl+'/filterpage',{params});
+  }
+
+  loadItensPage(pageNumber = 0, pageSize = 10) {
+    this.loadingSubject.next(true);
+
+    return this.getItensPage({ page: pageNumber, size: pageSize })
+        .pipe(catchError(() => of([])),
+            finalize(() => this.loadingSubject.next(false))
+        ).subscribe((result: any) => {
+            this.subjectItem.next(result.content);
+            this.countSubject.next(result.totalElements);
+    });
   }
 
   cadastrarItem(element: Item):Observable<Item>{

@@ -1,22 +1,37 @@
 <h1 *ngIf="!isChange" mat-dialog-title>Novo Item</h1>
 <h1 *ngIf="isChange" mat-dialog-title>Alterar Item</h1>
 <div mat-dialog-content>
-  <mat-form-field>
-    <mat-label>#Id</mat-label>
-    <input matInput [(ngModel)]="data.id" disabled>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Tipo de Item</mat-label>
-    <input matInput [(ngModel)]="data.tipo">
-  </mat-form-field>
-  <mat-form-field >
-    <mat-label>Descrição</mat-label>
-    <input matInput [(ngModel)]="data.descricao">
-  </mat-form-field>
+
+  <mat-card class="example-card">
+    <mat-card-content>
+      <mat-list>
+
+        <mat-list-item >
+          <mat-form-field>
+            <mat-label>#Id</mat-label>
+            <input matInput [(ngModel)]="data.id" disabled>
+          </mat-form-field>
+        </mat-list-item>
+        <mat-list-item >
+          <mat-form-field required style="margin-right: 50px;">
+            <select id="tipo_add" [(ngModel)]="data.tipo" name="tipo" matNativeControl required>
+              <option value="Documentos">Documentos</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </mat-form-field>
+
+          <mat-form-field required>
+            <mat-label>Descrição</mat-label>
+            <input matInput [(ngModel)]="data.descricao" required>
+          </mat-form-field>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancelar()">Cancelar</button>
-  <button mat-button (click)="onLimpar()">Limpar</button>
-  <button *ngIf="!isChange" mat-button [mat-dialog-close]="data" cdkFocusInitial>Salvar</button>
-  <button *ngIf="isChange" mat-button [mat-dialog-close]="data" cdkFocusInitial>Alterar</button>
+  <button class="btn_dialog" mat-button (click)="onCancelar()">Cancelar</button>
+  <button class="btn_dialog" mat-button (click)="onLimpar()">Limpar</button>
+  <button class="btn_dialog"  *ngIf="!isChange" mat-button [mat-dialog-close]="data" cdkFocusInitial>Salvar</button>
+  <button class="btn_dialog"  *ngIf="isChange" mat-button [mat-dialog-close]="data" cdkFocusInitial>Alterar</button>
 </div>
