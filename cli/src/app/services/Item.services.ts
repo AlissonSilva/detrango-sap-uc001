@@ -40,6 +40,15 @@ export class ItemServices{
     return this.http.get<Item[]>(this.apiUrl);
   }
 
+  pesquisarItem(element: any):Observable<any>{
+    // console.log(element);
+    const url = this.apiUrl+'/pesquisar';
+    const params = element;
+    console.log(url);
+    return this.http.get(this.apiUrl+'/pesquisar', {params});
+  }
+
+
   getItensPage(request: any){
     const params = request;
     return this.http.get(this.apiUrl+'/filterpage',{params});
@@ -61,6 +70,7 @@ export class ItemServices{
     //console.log(element);
     return this.http.post<Item>(this.apiUrl, element, this.httpOptions);
   }
+
 
   editarItem(element: Item): Observable<Item>{
     return this.http.put<Item>(`${this.apiUrl}/${element.id}/editar`, element);

@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['id','tipo', 'descricao','action'];
   dataSource!: Item[];
   router!: Router;
+  itemSearch:any = {};
 
 
   constructor(
@@ -53,6 +54,26 @@ export class HomeComponent implements OnInit {
     this.openDialog(element);
   }
 
+  pesquisarItem(){
+    if (!this.itemSearch.tipo_pesquisa){
+      this.snackBar('Tipo do item é obrigatório');
+    }else if(!this.itemSearch.descricao_pesquisa){
+      this.snackBar('Descrição é obrigatório');
+    }else{
+      this.itemServices.pesquisarItem(this.itemSearch).subscribe((data: Item[])=>{
+        console.log(data);
+        this.dataSource = data;
+      });
+    }
+  }
+
+  limparPesquisa(){
+    this.itemServices.getItens().subscribe((data: Item[])=>{
+      console.log(data);
+      this.dataSource = data;
+    });
+  }
+
   openDialog(element: Item | null): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: element === null ?{
@@ -67,6 +88,7 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if(result !== undefined){
         if(this.dataSource.map(p => p.id).includes(result.id)){
           this.itemServices.editarItem(result).subscribe((data: Item)=>{
@@ -82,6 +104,8 @@ export class HomeComponent implements OnInit {
               this.snackBar('Item cadastrado com sucesso');
           });
         }
+      }else {
+        this.snackBar('Campo descrição obrigatório');
       }
     });
   }
