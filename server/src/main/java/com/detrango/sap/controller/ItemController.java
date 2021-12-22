@@ -76,7 +76,7 @@ public class ItemController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Item> getItemId(@PathVariable(value = "id") Long id) {
-		Item item = itemRepository.findById(id).orElseThrow();
+		Item item = itemRepository.findById(id).orElseThrow(()-> new ItemException(id));
 		return ResponseEntity.ok().body(item);
 	}
 	
@@ -84,7 +84,7 @@ public class ItemController {
 	@PutMapping("/{id}/editar")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Item> editarItem(@PathVariable(value = "id") Long id, @Validated @RequestBody Item itemForm){
-		Item item = itemRepository.findById(id).orElseThrow();
+		Item item = itemRepository.findById(id).orElseThrow(()-> new ItemException(id));
 		item.setDescricao(itemForm.getDescricao());
 		item.setTipo(itemForm.getTipo());
 		final Item update = itemRepository.save(item);
@@ -93,7 +93,7 @@ public class ItemController {
 	
 	@PutMapping("/{id}/deletar")
 	public Map<String, Boolean> deletarItem(@PathVariable(value = "id") Long id){
-		Item item = itemRepository.findById(id).orElseThrow();
+		Item item = itemRepository.findById(id).orElseThrow(()->new ItemException(id));
 		itemRepository.delete(item);
 		
 		Map<String, Boolean> response = new HashMap<>();
